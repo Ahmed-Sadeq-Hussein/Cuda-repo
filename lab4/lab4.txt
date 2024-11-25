@@ -1,0 +1,76 @@
+// nvcc ex1v2.cu -o ex1v2 -ljetson-utils
+// ./ex1v2
+//  sudo /usr/local/cuda/bin/nvprof --print-gpu-summary ./ex1v2
+/////////////////////
+function recvThreadCore(), line 357)
+WARNING Argus: 6 client objects still exist during shutdown:
+	547369907456 (0x7f44000ee0)
+	547374980240 (0x7f44000c70)
+	547374980400 (0x7f440010f0)
+	547374980592 (0x7f44000fe0)
+	547374985888 (0x7f44002d80)
+	547374994200 (0x7f44002e98)
+[gstreamer] gstCamera -- end of stream (EOS)
+==7290== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   56.76%  3.14326s       700  4.4904ms  3.6449ms  6.7404ms  calcHistogramKernel(uchar4*, int*, int, int)
+                   15.98%  885.05ms       700  1.2644ms  992.17us  1.5607ms  void NV12ToRGB<uchar4>(unsigned int*, unsigned long, uchar4*, unsigned long, unsigned int, unsigned int)
+                   10.17%  563.40ms       700  804.86us  582.05us  3.4023ms  rgb2grayKernel(uchar4*, int, int, uchar4*)
+                    6.61%  365.83ms       700  522.61us  462.05us  646.95us  [CUDA memcpy DtoD]
+                    5.79%  320.78ms       700  458.25us  364.02us  616.74us  [CUDA memcpy HtoD]
+                    4.68%  259.20ms      1400  185.14us  91.305us  326.10us  [CUDA memcpy AtoD]
+                    0.00%  2.5520us         1  2.5520us  2.5520us  2.5520us  [CUDA memset]
+gray change
+ GPU activities:   31.95%  684.20ms       325  2.1052ms  1.4027ms  7.0422ms  calcHistogramKernel(uchar4*, int*, int, int)
+                   25.70%  550.22ms       325  1.6930ms  1.4971ms  4.1839ms  void NV12ToRGB<uchar4>(unsigned int*, unsigned long, uchar4*, unsigned long, unsigned int, unsigned int)
+                   15.44%  330.58ms       325  1.0172ms  895.56us  1.3323ms  rgb2grayKernel(uchar4*, int, int, uchar4*)
+                    9.82%  210.18ms       325  646.72us  567.26us  854.36us  [CUDA memcpy HtoD]
+                    9.24%  197.86ms       324  610.69us  550.34us  726.44us  [CUDA memcpy DtoD]
+                    7.83%  167.59ms       650  257.83us  150.11us  448.51us  [CUDA memcpy AtoD]
+                    0.03%  665.18us       326  2.0400us  1.6140us  6.6670us  [CUDA memset]
+
+atomid add 
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   35.43%  1.91381s       782  2.4473ms  942.88us  8.1750ms  calcHistogramKernel(uchar4*, int*, int, int)
+                   24.45%  1.32028s       782  1.6883ms  947.46us  6.5961ms  void NV12ToRGB<uchar4>(unsigned int*, unsigned long, uchar4*, unsigned long, unsigned int, unsigned int)
+                   14.59%  787.94ms       782  1.0076ms  550.42us  2.5638ms  rgb2grayKernel(uchar4*, int, int, uchar4*)
+                    9.34%  504.39ms       782  645.00us  366.10us  1.7034ms  [CUDA memcpy HtoD]
+                    8.80%  475.48ms       782  608.03us  445.27us  1.1549ms  [CUDA memcpy DtoD]
+                    7.36%  397.30ms      1564  254.03us  84.376us  893.24us  [CUDA memcpy AtoD]
+                    0.03%  1.7122ms       783  2.1860us  1.0410us  10.887us  [CUDA memset]
+added histogram view 
+
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   28.31%  10.7559s      5567  1.9321ms  1.2263ms  2.5801ms  calcHistogramKernel(uchar4*, int*, int, int)
+                   23.61%  8.97317s      5567  1.6119ms  1.1106ms  4.6156ms  void NV12ToRGB<uchar4>(unsigned int*, unsigned long, uchar4*, unsigned long, unsigned int, unsigned int)
+                   14.35%  5.45208s      5567  979.36us  661.47us  1.1135ms  rgb2grayKernel(uchar4*, int, int, uchar4*)
+                    8.96%  3.40323s      5567  611.32us  387.98us  706.63us  [CUDA memcpy HtoD]
+                    8.89%  3.37984s      5567  607.12us  355.79us  3.1748ms  plotHistogramKernel(uchar4*, int*, int, int, int)
+                    8.69%  3.30163s      5566  593.18us  476.83us  710.22us  [CUDA memcpy DtoD]
+                    7.16%  2.72222s     11134  244.50us  105.89us  383.50us  [CUDA memcpy AtoD]
+                    0.03%  10.918ms      5568  1.9600us  1.2500us  4.4790us  [CUDA memset]
+writting instructions 
+
+GPU activities:   29.13%  651.62ms       299  2.1793ms  1.0168ms  10.110ms  calcHistogramKernel(uchar4*, int*, int, int)
+                   23.37%  522.77ms       299  1.7484ms  992.02us  4.5943ms  void NV12ToRGB<uchar4>(unsigned int*, unsigned long, uchar4*, unsigned long, unsigned int, unsigned int)
+                   14.18%  317.25ms       299  1.0610ms  595.02us  2.5755ms  rgb2grayKernel(uchar4*, int, int, uchar4*)
+                    9.03%  201.97ms       299  675.47us  389.34us  1.7025ms  [CUDA memcpy HtoD]
+                    8.64%  193.19ms       299  646.13us  289.33us  2.8661ms  plotHistogramKernel(uchar4*, int*, int, int, int)
+                    8.44%  188.78ms       298  633.50us  470.80us  1.1568ms  [CUDA memcpy DtoD]
+                    7.16%  160.24ms       598  267.95us  93.025us  887.33us  [CUDA memcpy AtoD]
+                    0.04%  881.24us       299  2.9470us  1.8230us  6.1470us  [CUDA memcpy DtoH]
+                    0.02%  351.74us       300  1.1720us     572ns  10.833us  [CUDA memset]
+shared memmory implimintation 
+
+GPU activities:   30.01%  320.86ms       188  1.7067ms  1.2765ms  1.7825ms  calcHistogramKernel(uchar4*, int*, int, int)
+                   22.99%  245.76ms       188  1.3072ms  1.0477ms  1.3916ms  void NV12ToRGB<uchar4>(unsigned int*, unsigned long, uchar4*, unsigned long, unsigned int, unsigned int)
+                   14.28%  152.67ms       188  812.10us  636.15us  876.88us  rgb2grayKernel(uchar4*, int, int, uchar4*)
+                    9.54%  101.99ms       187  545.42us  488.34us  615.06us  [CUDA memcpy DtoD]
+                    8.60%  91.938ms       188  489.03us  398.96us  655.22us  [CUDA memcpy HtoD]
+                    7.75%  82.835ms       188  440.61us  321.15us  520.63us  plotHistogramKernel(uchar4*, int*, int, int, int)
+                    6.77%  72.378ms       376  192.49us  99.376us  269.17us  [CUDA memcpy AtoD]
+                    0.04%  467.09us       188  2.4840us  1.9270us  3.5420us  [CUDA memcpy DtoH]
+                    0.02%  162.08us       189     857ns     625ns  2.5520us  [CUDA memset]
+
+
+//////////////////////

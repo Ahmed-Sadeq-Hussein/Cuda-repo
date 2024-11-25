@@ -1,0 +1,72 @@
+/usr/local/cuda/bin/nvprof
+
+
+
+Max error: 0
+==6579== Profiling application: ./ex1
+==6579== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   96.57%  3.34757s         1  3.34757s  3.34757s  3.34757s  multKernel(int, float*, float*, float*)
+                    1.72%  59.725ms         2  29.862ms  28.329ms  31.395ms  [CUDA memcpy HtoD]
+                    1.71%  59.143ms         1  59.143ms  59.143ms  59.143ms  [CUDA memcpy DtoH]
+Answers  : 
+kernel 3.34 s 
+59.725 ms host to device
+59.143ms device to host 
+just one thread at use .and single block 
+
+--
+Max error: 0
+==6712== Profiling application: ./ex2
+==6712== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   43.85%  93.454ms         2  46.727ms  45.255ms  48.198ms  [CUDA memcpy HtoD]
+                   32.70%  69.681ms         1  69.681ms  69.681ms  69.681ms  multKernel(int, float*, float*, float*)
+                   23.45%  49.963ms         1  49.963ms  49.963ms  49.963ms  [CUDA memcpy DtoH
+
+                
+awnsers : 
+48 times faster . 
+because we use more threads workin in parallel 
+under 100ms on multiple tries 
+
+
+dex.html#um-requirements
+Max error: 0
+==6935== Profiling application: ./ex3
+==6935== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   46.44%  105.43ms         2  52.717ms  45.551ms  59.882ms  [CUDA memcpy HtoD]
+                   36.96%  83.917ms         1  83.917ms  83.917ms  83.917ms  [CUDA memcpy DtoH]
+                   16.60%  37.699ms         1  37.699ms  37.699ms  37.699ms  multKernel(int, float*, float*, float*)
+
+awnsers :
+kernel is better by aprox 2.5 times . 
+65k blocks and 256 threads, we have way more threads working in parallel this time .
+
+
+---
+sudo /usr/local/cuda/bin/nvprof --print-gpu-summary ./ex4
+==7254== NVPROF is profiling process 7254, command: ./ex4
+==7254== Warning: Unified Memory Profiling is not supported on the underlying platform. System requirements for unified memory can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-requirements
+Max error: 0
+==7254== Profiling application: ./ex4
+==7254== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   63.68%  242.31ms         3  80.769ms  74.345ms  91.195ms  [CUDA memcpy HtoD]
+                   22.71%  86.408ms         1  86.408ms  86.408ms  86.408ms  [CUDA memcpy DtoH]
+                   13.62%  51.810ms         1  51.810ms  51.810ms  51.810ms  multKernel(int, float*, float*, float*, int*)
+--
+
+--
+sudo /usr/local/cuda/bin/nvprof --print-gpu-summary ./ex4
+==7254== NVPROF is profiling process 7254, command: ./ex4
+==7254== Warning: Unified Memory Profiling is not supported on the underlying platform. System requirements for unified memory can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-requirements
+Max error: 0
+==7254== Profiling application: ./ex4
+==7254== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   63.68%  242.31ms         3  80.769ms  74.345ms  91.195ms  [CUDA memcpy HtoD]
+                   22.71%  86.408ms         1  86.408ms  86.408ms  86.408ms  [CUDA memcpy DtoH]
+                   13.62%  51.810ms         1  51.810ms  51.810ms  51.810ms  multKernel(int, float*, float*, float*, int*)
+---

@@ -1,0 +1,208 @@
+Watch after entering kernel:
+threadIdx.x: 0
+blockIdx.x: 0
+blockDim.x: 512
+gridDim.x: 16384
+
+Explain how we only stop at threadId 76:
+We edit the breakpoint with a condition
+
+
+==WARNING== Note: Running with unmodified GPU clocks. If not controlled otherwise, profiling results may be inconsistent.
+==PROF== Connected to process 23615 (/home/coder/projects/TDSN13/jash/ex1)
+==PROF== Profiling "reduceSum(int *, int *, int)" - 0: 0%....50%....100% - 10 passes
+Total Sum (GPU) = 830584179
+Total Sum (CPU) = 830584179
+==PROF== Disconnected from process 23615
+[23615] ex1@127.0.0.1
+  reduceSum(int *, int *, int) (16384, 1, 1)x(512, 1, 1), Context 1, Stream 7, Device 0, CC 8.0
+    Warning: Data collection happened without fixed GPU frequencies. Profiling results may be inconsistent.
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ------------- ------------
+    Metric Name               Metric Unit Metric Value
+    ----------------------- ------------- ------------
+    DRAM Frequency          cycle/nsecond         1.51
+    SM Frequency            cycle/nsecond         1.41
+    Elapsed Cycles                  cycle      1858293
+    Memory Throughput                   %        53.16
+    DRAM Throughput                     %        21.07
+    Duration                      msecond         1.32
+    L1/TEX Cache Throughput             %        53.24
+    L2 Cache Throughput                 %        11.79
+    SM Active Cycles                cycle   1855682.71
+    Compute (SM) Throughput             %        73.89
+    ----------------------- ------------- ------------
+
+    WRN   Compute is more heavily utilized than Memory: Look at the Compute Workload Analysis section to see what the   
+          compute pipelines are spending their time doing. Also, consider whether any computation is redundant and      
+          could be reduced or moved to look-up tables.                                                                  
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ---------------
+    Metric Name                          Metric Unit    Metric Value
+    -------------------------------- --------------- ---------------
+    Block Size                                                   512
+    Function Cache Configuration                     CachePreferNone
+    Grid Size                                                  16384
+    Registers Per Thread             register/thread              16
+    Shared Memory Configuration Size           Kbyte           65.54
+    Driver Shared Memory Per Block       Kbyte/block            1.02
+    Dynamic Shared Memory Per Block      Kbyte/block            4.10
+    Static Shared Memory Per Block        byte/block               0
+    Threads                                   thread         8388608
+    Waves Per SM                                              292.57
+    -------------------------------- --------------- ---------------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------------
+    Metric Name                     Metric Unit Metric Value
+    ------------------------------- ----------- ------------
+    Block Limit SM                        block           32
+    Block Limit Registers                 block            8
+    Block Limit Shared Mem                block           12
+    Block Limit Warps                     block            4
+    Theoretical Active Warps per SM        warp           64
+    Theoretical Occupancy                     %          100
+    Achieved Occupancy                        %        95.68
+    Achieved Active Warps Per SM           warp        61.24
+    ------------------------------- ----------- ------------
+
+    INF   This kernel's theoretical occupancy is not impacted by any block limit.   
+
+
+    What is the duration of your kernel?
+    1,32 ms
+
+
+
+    --set full
+
+    WRN   Compute is more heavily utilized than Memory: Look at the Compute Workload Analysis section to see what the   
+          compute pipelines are spending their time doing. Also, consider whether any computation is redundant and      
+          could be reduced or moved to look-up tables.     
+
+    INF   The ratio of peak float (fp32) to double (fp64) performance on this device is 2:1. The kernel achieved 0% of  
+          this device's fp32 peak performance and 0% of its fp64 peak performance. See the Kernel Profiling Guide       
+          (https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#roofline) for more details on roofline      
+          analysis.                                                                                                     
+
+    INF   ALU is the highest-utilized pipeline (58.0%) based on active cycles, taking into account the rates of its     
+          different instructions. It executes integer and logic operations. It is well-utilized, but should not be a    
+          bottleneck.             
+
+    WRN   The memory access pattern for stores from L1TEX to L2 is not optimal. The granularity of an L1TEX request to  
+          L2 is a 128 byte cache line. That is 4 consecutive 32-byte sectors per L2 request. However, this kernel only  
+          accesses an average of 1.0 sectors out of the possible 4 sectors per cache line. Check the Source Counters    
+          section for uncoalesced stores and try to minimize how many cache lines need to be accessed per memory        
+          request.   
+
+    INF   This kernel's theoretical occupancy is not impacted by any block limit.           
+
+    WRN   This kernel has uncoalesced shared accesses resulting in a total of 3932160 excessive wavefronts (40% of the  
+          total 9928704 wavefronts). Check the L1 Wavefronts Shared Excessive table for the primary source locations.   
+          The CUDA Best Practices Guide                                                                                 
+           (https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html#shared-memory-in-matrix-multiplication-c
+          -aa) has an example on optimizing shared memory accesses.    
+
+
+1024 threads per block
+Section: GPU Speed Of Light Throughput
+    ----------------------- ------------- ------------
+    Metric Name               Metric Unit Metric Value
+    ----------------------- ------------- ------------
+    DRAM Frequency          cycle/nsecond         1.51
+    SM Frequency            cycle/nsecond         1.41
+    Elapsed Cycles                  cycle      2320378
+    Memory Throughput                   %        44.31
+    DRAM Throughput                     %        16.87
+    Duration                      msecond         1.65
+    L1/TEX Cache Throughput             %        44.40
+    L2 Cache Throughput                 %         9.44
+    SM Active Cycles                cycle   2315504.93
+    Compute (SM) Throughput             %        64.59
+    ----------------------- ------------- ------------
+
+256 threads per block // Ash :)
+Section: GPU Speed Of Light Throughput
+    ----------------------- ------------- ------------
+    Metric Name               Metric Unit Metric Value
+    ----------------------- ------------- ------------
+    DRAM Frequency          cycle/nsecond         1.51
+    SM Frequency            cycle/nsecond         1.41
+    Elapsed Cycles                  cycle      1603000
+    Memory Throughput                   %        60.18
+    DRAM Throughput                     %        24.45
+    Duration                      msecond         1.14
+    L1/TEX Cache Throughput             %        60.27
+    L2 Cache Throughput                 %        13.66
+    SM Active Cycles                cycle   1600563.14
+    Compute (SM) Throughput             %        77.87
+    ----------------------- ------------- ------------
+
+
+    Ex2
+
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ------------- ------------
+    Metric Name               Metric Unit Metric Value
+    ----------------------- ------------- ------------
+    DRAM Frequency          cycle/nsecond         1.51
+    SM Frequency            cycle/nsecond         1.41
+    Elapsed Cycles                  cycle       915141
+    Memory Throughput                   %        76.64
+    DRAM Throughput                     %        42.78
+    Duration                      usecond       649.54
+    L1/TEX Cache Throughput             %        76.83
+    L2 Cache Throughput                 %        23.93
+    SM Active Cycles                cycle    912826.21
+    Compute (SM) Throughput             %        71.87
+    ----------------------- ------------- ------------
+
+    --set full
+
+    INF   Compute and Memory are well-balanced: To reduce runtime, both computation and memory traffic must be reduced. 
+          Check both the Compute Workload Analysis and Memory Workload Analysis sections.                               
+
+    INF   The ratio of peak float (fp32) to double (fp64) performance on this device is 2:1. The kernel achieved 0% of  
+          this device's fp32 peak performance and 0% of its fp64 peak performance. See the Kernel Profiling Guide       
+          (https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#roofline) for more details on roofline      
+          analysis.                                                                                                     
+
+    INF   ALU is the highest-utilized pipeline (45.1%) based on active cycles, taking into account the rates of its     
+          different instructions. It executes integer and logic operations. It is well-utilized, but should not be a    
+          bottleneck.                                                                                                   
+
+    WRN   The memory access pattern for stores from L1TEX to L2 is not optimal. The granularity of an L1TEX request to  
+          L2 is a 128 byte cache line. That is 4 consecutive 32-byte sectors per L2 request. However, this kernel only  
+          accesses an average of 1.0 sectors out of the possible 4 sectors per cache line. Check the Source Counters    
+          section for uncoalesced stores and try to minimize how many cache lines need to be accessed per memory        
+          request.                                                                                                      
+
+    WRN   Instructions are executed in warps, which are groups of 32 threads. Optimal instruction throughput is         
+          achieved if all 32 threads of a warp execute the same instruction. The chosen launch configuration, early     
+          thread completion, and divergent flow control can significantly lower the number of active threads in a warp  
+          per cycle. This kernel achieves an average of 31.9 threads being active per cycle. This is further reduced    
+          to 20.9 threads per warp due to predication. The compiler may use predication to avoid an actual branch.      
+          Instead, all instructions are scheduled, but a per-thread condition code or predicate controls which threads  
+          execute the instructions. Try to avoid different execution paths within a warp when possible. In addition,    
+          ensure your kernel makes use of Independent Thread Scheduling, which allows a warp to reconverge after a      
+          data-dependent conditional block by explicitly calling __syncwarp().                                          
+
+    INF   This kernel's theoretical occupancy is not impacted by any block limit.                                       
+
+
+
+    Explain why the ex2 is faster and more efficient than ex1: 
+    Because of N being a facotr that is accounted for in the calculations and 
+    when N reaches its [The edge of the memory ] The threads wait on each other 
+    a few clock cycles BUT then start picking up memory again AS A BLOCK, 
+    leading to more coalesed memory accesses compared to before. 
+    Ergo the goal of N Is to Unify the threads accessing memory as a BLOCK TO SET .
+
+
+
+    assignment 3
+    Duration                      usecond       248.32 <128>
+     Duration                      usecond       230.82 <512>
+       Duration                      usecond       241.60 <1024>
+         Duration                      usecond       236.54<256>

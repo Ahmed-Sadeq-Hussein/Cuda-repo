@@ -1,0 +1,97 @@
+
+
+/usr/local/cuda/bin/nvprof
+////////////// commands 
+nvcc ex1.cu -o ex1 -ljetson-utils 
+./ex1
+sudo /usr/local/cuda/bin/nvprof --print-gpu-summary ./ex1
+-ljetson-utils
+
+gstCamera video options:
+------------------------------------------------
+  -- URI: csi://0
+     - protocol:  csi
+     - location:  0
+  -- deviceType: csi
+  -- ioType:     input
+  -- width:      1280
+  -- height:     720
+  -- frameRate:  30
+  -- numBuffers: 4
+  -- zeroCopy:   true
+  -- flipMethod: rotate-180
+------------------------------------------------
+[OpenGL] glDisplay -- X screen 0 resolution:  1920x1200
+[OpenGL] glDisplay -- X window resolution:    1920x1200
+[OpenGL] glDisplay -- display device initialized (1920x1200)
+[video]  created glDisplay from display://0
+------------------------------------------------
+glDisplay video options:
+------------------------------------------------
+  -- URI: display://0
+     - protocol:  display
+     - location:  0
+  -- deviceType: display
+  -- ioType:     output
+  -- width:      1920
+  -- height:     1200
+  -- frameRate:  0
+  -- numBuffers: 4
+  -- zeroCopy:   true
+
+  --- CHAR3 
+  ==6438== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   72.63%  412.18ms       172  2.3964ms  2.0728ms  4.0924ms  void NV12ToRGB<uchar3>(unsigned int*, unsigned long, uchar3*, unsigned long, unsigned int, unsigned int)
+                   14.10%  80.018ms       344  232.61us  149.59us  450.12us  [CUDA memcpy AtoD]
+                   13.27%  75.308ms       172  437.84us  427.10us  641.17us  [CUDA memcpy HtoD]
+-----
+///// CHAR4
+==6382== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   60.30%  852.22ms       486  1.7535ms  1.4828ms  9.6055ms  void NV12ToRGB<uchar4>(unsigned int*, unsigned long, uchar4*, unsigned long, unsigned int, unsigned int)
+                   22.10%  312.30ms       486  642.60us  567.99us  1.1365ms  [CUDA memcpy HtoD]
+                   17.60%  248.68ms       972  255.84us  148.81us  606.48us  [CUDA memcpy AtoD]
+
+/////
+
+
+
+
+
+////////////// commands 
+nvcc ex2.cu -o ex2 -ljetson-utils 
+./ex2
+sudo /usr/local/cuda/bin/nvprof --print-gpu-summary ./ex2
+
+
+--
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   53.84%  583.08ms       151  3.8614ms  3.3805ms  8.2305ms  rgb2grayKernel(uchar4*, int, int)
+                   27.38%  296.48ms       151  1.9635ms  1.4973ms  6.9046ms  void NV12ToRGB<uchar4>(unsigned int*, unsigned long, uchar4*, unsigned long, unsigned int, unsigned int)
+                   10.44%  113.02ms       151  748.45us  568.05us  1.7031ms  [CUDA memcpy HtoD]
+                    8.34%  90.306ms       302  299.03us  151.15us  890.46us  [CUDA memcpy AtoD]
+
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   52.70%  4.79484s      1241  3.8637ms  2.8048ms  6.4848ms  rgb2grayKernel(uchar4*, int, int)
+                   27.71%  2.52112s      1241  2.0315ms  1.0316ms  4.1772ms  void NV12ToRGB<uchar4>(unsigned int*, unsigned long, uchar4*, unsigned long, unsigned int, unsigned int)
+                   10.94%  995.64ms      1241  802.29us  362.35us  1.1364ms  [CUDA memcpy HtoD]
+                    8.65%  787.26ms      2482  317.19us  98.543us  596.83us  [CUDA memcpy AtoD]
+
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   59.81%  237.13ms        69  3.4367ms  3.0275ms  6.1238ms  rgb2grayKernel(uchar4*, int, int)
+                   24.09%  95.530ms        69  1.3845ms  1.3153ms  2.3850ms  void NV12ToRGB<uchar4>(unsigned int*, unsigned long, uchar4*, unsigned long, unsigned int, unsigned int)
+                    8.88%  35.224ms        69  510.50us  487.17us  851.84us  [CUDA memcpy HtoD]
+                    7.21%  28.598ms       138  207.23us  129.28us  446.65us  [CUDA memcpy AtoD]
+
+
+
+--
+==6846== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   35.96%  806.99ms       507  1.5917ms  1.3155ms  3.8664ms  void NV12ToRGB<uchar4>(unsigned int*, unsigned long, uchar4*, unsigned long, unsigned int, unsigned int)
+                   26.95%  604.75ms       507  1.1928ms  814.45us  3.7853ms  rgb2grayKernel(uchar4*, int, int, uchar4*)
+                   13.29%  298.27ms       507  588.31us  487.04us  852.94us  [CUDA memcpy HtoD]
+                   13.16%  295.42ms       507  582.68us  508.40us  711.01us  [CUDA memcpy DtoD]
+                   10.64%  238.67ms      1014  235.38us  129.02us  452.62us  [CUDA memcpy AtoD]
+--

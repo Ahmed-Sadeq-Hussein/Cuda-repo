@@ -1,0 +1,64 @@
+jash@jash-desktop:~/Desktop/jash labs$ gcc multiply.c -o multiply
+jash@jash-desktop:~/Desktop/jash labs$ ./multiply
+Elapsed time std: 1.487141
+Elapsed time vec: 0.781092
+jash@jash-desktop:~/Desktop/jash labs$ ./multiply
+Elapsed time std: 1.472195
+Elapsed time vec: 0.777548
+jash@jash-desktop:~/Desktop/jash labs$ ./multiply
+Elapsed time std: 1.495924
+Elapsed time vec: 0.770012
+=========0
+
+jash@jash-desktop:~/Desktop/jash labs$ gcc multiply.c -o1 multiply
+jash@jash-desktop:~/Desktop/jash labs$ ./multiply
+Elapsed time std: 1.492100
+Elapsed time vec: 0.763546
+jash@jash-desktop:~/Desktop/jash labs$ ./multiply
+Elapsed time std: 1.473140
+Elapsed time vec: 0.778580
+jash@jash-desktop:~/Desktop/jash labs$ ./multiply
+Elapsed time std: 1.514643
+Elapsed time vec: 0.770545
+jash@jash-desktop:~/Desktop/jash labs$ 
+
+==================1
+
+jash@jash-desktop:~/Desktop/jash labs$ gcc multiply.c -o2 multiply
+jash@jash-desktop:~/Desktop/jash labs$ ./multiply
+Elapsed time std: 1.485814
+Elapsed time vec: 0.775797
+jash@jash-desktop:~/Desktop/jash labs$ ./multiply
+^[[A^[[BElapsed time std: 1.477069
+Elapsed time vec: 0.774642
+^[[Bjash@jash-desktop:~/Desktop/jash labs$ ./multiply
+Elapsed time std: 1.522439
+Elapsed time vec: 0.761715
+jash@jash-desktop:~/Desktop/jash labs$ 
+
+==================== 2
+
+
+jash@jash-desktop:~/Desktop/jash labs$ gcc multiply.c -o3 multiply
+jash@jash-desktop:~/Desktop/jash labs$ ./multiply
+Elapsed time std: 1.467667
+Elapsed time vec: 0.752993
+jash@jash-desktop:~/Desktop/jash labs$ ./multiply
+Elapsed time std: 1.464209
+Elapsed time vec: 0.777170
+jash@jash-desktop:~/Desktop/jash labs$ ./multiply
+Elapsed time std: 1.530294
+Elapsed time vec: 0.789501
+jash@jash-desktop:~/Desktop/jash labs$ 
+
+==================3
+
+
+   std    |    vect
+0  1,523  |    0,815
+
+1  0,543  |    0,190
+
+2  0,525  |    0,20
+
+3  0,513  |    0,188
